@@ -16,7 +16,8 @@ class App extends React.Component {
     cityName: '',
     cityTemp: '',
     cityIcon: '',
-    cityHumidity: ''
+    cityHumidity: '',
+    cityDescription:''
 
   }
 
@@ -29,7 +30,7 @@ class App extends React.Component {
   handleSearch() {
     axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${this.state.currentCity + '&appid=d2759249bf9ce3e1e3b6a45433e4299f'}`).then(function(response) {
       console.log(response.data)
-      this.setState({cityName: response.data.name, cityTemp: response.data.main.temp, cityHumidity: response.data.main.humidity}, function(){
+      this.setState({cityName: response.data.name, cityTemp: response.data.main.temp, cityHumidity: response.data.main.humidity, cityDescription: response.data.weather[0].description, cityIcon: `https://openweathermap.org/img/w/${response.data.weather[0].icon}.png`}, function(){
 
       })
     }.bind(this))
@@ -52,7 +53,7 @@ class App extends React.Component {
 
       </div>
       <div className="body">
-        <City name={this.state.cityName} currentTemp={this.state.cityTemp} humidity={this.state.cityHumidity}/>
+        <City name={this.state.cityName} currentTemp={this.state.cityTemp} humidity={this.state.cityHumidity}  description={this.state.cityDescription} imgSrc={this.state.cityIcon}/>
       </div>
     </div>)
   }
