@@ -1,16 +1,28 @@
 import React from 'react';
 import './index.css';
 
-const City = ({name, currentTemp, imgSrc, description, humidity}) => {
+const City = ({
+  imgSrc,
+  description,
+  humidity,
+  minTemp,
+  maxTemp,
+  date
+}) => {
   return (<div className="city-card-container">
-    <div className="city-name">
-      {name}
+    <div className="weather-date">
+      {date}
     </div>
-    <div className="city-icon">
-      <img src={imgSrc} alt={description}/>
+
+    <div className="city-icon-div">
+      <img src={imgSrc} alt={description} className="city-icon"/>
     </div>
     <div className="city-weather">
-      {currentTemp}, {humidity}
+      Humidity:{humidity}
+    </div>
+    <div className="min-max-temps">
+
+      <span className="min-temp">Min:{minTemp}</span> <span className="max-temp"> Max:{maxTemp}</span>
     </div>
     <div className="city-description">
       {description}
