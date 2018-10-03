@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios'
 import Logo from './Logo'
-import City from './City';
+import CityList from './CityList'
 import './index.css';
 
 class App extends React.Component {
@@ -14,11 +14,7 @@ class App extends React.Component {
   state = {
     currentCity: '',
     cityName: '',
-    cityTemp: '',
-    cityIcon: '',
-    cityHumidity: '',
-    cityDescription:''
-
+    cityData: []
   }
 
   handleKeyUp(e) {
@@ -28,9 +24,9 @@ class App extends React.Component {
   }
 
   handleSearch() {
-    axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${this.state.currentCity + '&appid=d2759249bf9ce3e1e3b6a45433e4299f'}`).then(function(response) {
-      console.log(response.data)
-      this.setState({cityName: response.data.name, cityTemp: response.data.main.temp, cityHumidity: response.data.main.humidity, cityDescription: response.data.weather[0].description, cityIcon: `https://openweathermap.org/img/w/${response.data.weather[0].icon}.png`}, function(){
+    axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${this.state.currentCity + '&appid=d2759249bf9ce3e1e3b6a45433e4299f'}`).then(function(response) {
+      this.setState({cityName: response.data.city.name, cityData: [...this.state.cityData, response.data.list[0], response.data.list[7], response.data.list[15], response.data.list[23], response.data.list[31]]}, function(){
+        console.log(this.state.cityData)
 
       })
     }.bind(this))
@@ -53,7 +49,7 @@ class App extends React.Component {
 
       </div>
       <div className="body">
-        <City name={this.state.cityName} currentTemp={this.state.cityTemp} humidity={this.state.cityHumidity}  description={this.state.cityDescription} imgSrc={this.state.cityIcon}/>
+        <CityList cityData={this.state.cityData} cityName={this.state.cityName}/>
       </div>
     </div>)
   }
