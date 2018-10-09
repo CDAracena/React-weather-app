@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios'
 import Logo from './Logo'
 import CityList from './CityList'
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import './index.css';
 
 class App extends React.Component {
@@ -51,7 +52,8 @@ class App extends React.Component {
       <div className="body">
         <CityList cityData={this.state.cityData} cityName={this.state.cityName}/>
       </div>
-    </div>)
+    </div>
+  )
   }
 }
 
