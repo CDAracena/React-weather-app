@@ -2,8 +2,8 @@ import React from 'react';
 import axios from 'axios'
 import Logo from './Logo'
 import CityList from './CityList'
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import './index.css';
+
 
 class App extends React.Component {
   constructor(props) {
@@ -15,7 +15,8 @@ class App extends React.Component {
   state = {
     currentCity: '',
     cityName: '',
-    cityData: []
+    cityData: [],
+    apiKey: `&appid=${process.env.REACT_APP_OPENWEATHER_KEY}`
   }
 
   handleKeyUp(e) {
@@ -25,7 +26,7 @@ class App extends React.Component {
   }
 
   handleSearch() {
-    axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${this.state.currentCity + '&appid=d2759249bf9ce3e1e3b6a45433e4299f'}`).then(function(response) {
+    axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${this.state.currentCity + this.state.apiKey}`).then(function(response) {
       const cityData = [response.data.list[0], response.data.list[7], response.data.list[15], response.data.list[23], response.data.list[31]]
       this.setState({cityName: response.data.city.name, cityData: cityData}, function(){
 
